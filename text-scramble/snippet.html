@@ -1,0 +1,102 @@
+<!-- Text scramble. The two pages of the preview, one per trigger, as they
+     ship: block 1 is the scroll page, block 2 the hover page. Each one is
+     the body of its page; put them on two pages, or one under the other.
+
+     The trigger is the value of data-text-scramble on the text element
+     itself: scroll, hover, or scroll hover. The settings go on the same
+     element, as more attributes: the staggered data-text-scramble-delay of
+     block 1 and data-text-scramble-chars="digits" on its figures are the
+     preview's own. In Webflow: select the element, open the Settings panel
+     (gear icon), Custom attributes.
+
+     The look of the preview ships in text-scramble.css, in the part after
+     the line "look, left out of the Webflow Embed": the dark ground, the
+     grid, the type and the labels, on the ts-* classes below. With that
+     sheet, the font tag and the two pictures of images/, this markup is
+     the preview. The engine never reads a class:
+     on text of your own, keep your classes and add the attribute.
+
+     data-ts-menu-link is for the keyboard ring of the menu links, which the
+     Embed brings and reads by attribute, never by class: Webflow renames a
+     class pasted twice on one site. -->
+
+<!-- Block 1, on scroll. Each text settles as it comes into view, in the
+     order its delay sets. -->
+<div class="ts-page">
+
+  <section class="ts-sheet">
+    <div class="ts-rail">
+      <span data-text-scramble="scroll">[//] Lackawanna County, Pennsylvania</span>
+      <span data-text-scramble="scroll" data-text-scramble-delay="0.14">Ledger 04</span>
+      <span data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.28">06:40</span>
+    </div>
+
+    <h1 class="ts-mast" data-text-scramble="scroll" data-text-scramble-delay="0.18">Eleven people <img class="ts-slot" src="images/text-scramble-pitchers.jpg" width="900" height="310" loading="eager" decoding="async" alt="A group of pale stoneware pitchers against a dark wall"> keep a whole county in paper</h1>
+
+    <div class="ts-row">
+      <p class="ts-lede" data-text-scramble="scroll" data-text-scramble-delay="0.4">There is no call centre here and no forecast worth the name. There is a route book older than the building, eleven people who drive it, and a warehouse that has never let the county get closer than nine days.</p>
+
+      <div class="ts-ledger">
+        <div class="ts-ledger-row" data-text-scramble="scroll" data-text-scramble-delay="0.52">
+          <span>Accounts served</span>
+          <span class="ts-figure" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.58">41</span>
+        </div>
+        <div class="ts-ledger-row" data-text-scramble="scroll" data-text-scramble-delay="0.64">
+          <span>Grades held</span>
+          <span class="ts-figure" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.7">24</span>
+        </div>
+        <div class="ts-ledger-row" data-text-scramble="scroll" data-text-scramble-delay="0.76">
+          <span>Days of cover</span>
+          <span class="ts-figure" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.82">9</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ts-beat">
+    <figure class="ts-band">
+      <img class="ts-band-image" src="images/text-scramble-mugs.jpg" width="1600" height="610" loading="lazy" decoding="async" alt="White speckled stoneware mugs on a white table, dark wall behind">
+    </figure>
+
+    <div class="ts-plate-line">
+      <span data-text-scramble="scroll">Plate 02, the territory after the last van</span>
+      <span data-text-scramble="scroll" data-text-scramble-delay="0.16">Counted <span class="ts-ok">OK</span></span>
+    </div>
+
+    <div class="ts-index">
+      <div class="ts-index-row">
+        <span class="ts-rank" data-text-scramble="scroll" data-text-scramble-chars="digits">01</span>
+        <span class="ts-line" data-text-scramble="scroll" data-text-scramble-delay="0.1">The route book is older than the building</span>
+        <span class="ts-num" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.2">1949</span>
+      </div>
+      <div class="ts-index-row">
+        <span class="ts-rank" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.14">02</span>
+        <span class="ts-line" data-text-scramble="scroll" data-text-scramble-delay="0.24">Every order is called back by a person</span>
+        <span class="ts-num" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.34">2 244</span>
+      </div>
+      <div class="ts-index-row">
+        <span class="ts-rank" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.28">03</span>
+        <span class="ts-line" data-text-scramble="scroll" data-text-scramble-delay="0.38">Nothing leaves the floor uncounted</span>
+        <span class="ts-num" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.48">94%</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="ts-trace">data-text-scramble="scroll"</p>
+
+</div>
+
+<!-- Block 2, on hover. Each link scrambles when the pointer enters it, when
+     it takes keyboard focus, or once per tap. -->
+<div class="ts-menu-page">
+  <h1 class="ts-sr-only">Text scramble, on hover</h1>
+
+  <nav class="ts-menu" aria-label="Demo menu">
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">01</span><span class="ts-menu-word">Order paper</span></a>
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">02</span><span class="ts-menu-word">Track a shipment</span></a>
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">03</span><span class="ts-menu-word">Open an account</span></a>
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">04</span><span class="ts-menu-word">Talk to a person</span></a>
+  </nav>
+
+  <p class="ts-menu-trace">data-text-scramble="hover"</p>
+</div>

@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- Dot repel, a free component of Moving parts. MIT licence.
+     Open this file in a browser: it runs as it is.
+     Webflow paste, AI prompt and the rest of the library:
+     https://movingparts.supply/components/dot-repel/?from=github -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dunder Mifflin, Inc. / Paper Company</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="dot-repel.css">
+<style>
+  /* Staging only: what the demo adds to the component, and nothing else.
+     The look of this page is the last part of dot-repel.css, and its markup is
+     snippet.html. Geist and Geist Mono (SIL Open Font License) come from
+     the Google Fonts tag above. */
+
+  ::selection { background: #15100c; color: #f4ece0; }
+
+  body {
+    margin: 0;
+    background: #f4ece0;
+  }
+</style>
+</head>
+<body>
+
+<section class="dot-repel-scene" data-dot-repel>
+  <header class="dot-repel-header">
+    <div class="dot-repel-logo">Dunder Mifflin</div>
+    <div class="dot-repel-place">Scranton, PA / Est. 1949</div>
+  </header>
+
+  <div class="dot-repel-hero">
+    <div class="dot-repel-eyebrow">// Dunder Mifflin Paper Company</div>
+    <h1 class="dot-repel-title">Paper that holds the ink.</h1>
+    <p class="dot-repel-lede">Twenty-four pound bond with a tooth that takes toner and fountain pen alike. Every ream leaves Scranton checked by hand, and every order comes with a salesman who remembers your name.</p>
+    <div class="dot-repel-actions">
+      <a class="dot-repel-button" href="#">Order a ream</a>
+      <a class="dot-repel-link" href="#">Find your branch</a>
+    </div>
+  </div>
+</section>
+
+<script src="dot-repel.js"></script>
+<script>
+  /* Staging only: the links of the demo go nowhere. */
+  (function () {
+    [].forEach.call(document.querySelectorAll('[data-dot-repel] a'), function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+  })();
+</script>
+</body>
+</html>

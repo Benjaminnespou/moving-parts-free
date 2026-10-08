@@ -1,0 +1,37 @@
+<!-- Button 01, from the Button set. One button, one attribute.
+
+     data-button-motion="magnetic" marks the button and picks its animation.
+     Put it on any button or link of the page; the engine reads the
+     attribute, never the tag. Another button of the set on the same page
+     brings its own file and shares this one's base.
+
+     This is the preview as it ships. The button-set-* classes are its look,
+     written at the end of button-01.css, and the Webflow paste carries
+     the same classes: the button at rest, its row, the words around it. The
+     engine never reads a class. On a button of your own, keep your class and
+     add the attribute; the engine adds what moves, and
+     puts everything back on destroy. The keyboard ring of the look finds
+     the button by data-button-set-button: Webflow renames a class pasted
+     twice on one site, never an attribute.
+
+     In Webflow: the settings are custom attributes on the same element,
+     for instance data-button-motion-pull="0.3". -->
+
+<section class="button-set-section">
+  <div class="button-set-head">
+    <span class="button-set-label">[//] Button 01</span>
+    <span class="button-set-label">Magnetic</span>
+  </div>
+
+  <div class="button-set-row">
+    <div class="button-set-cell">
+      <button class="button-set-button" type="button" data-button-motion="magnetic" data-button-set-button>Start a project</button>
+      <span class="button-set-caption">data-button-motion="magnetic"</span>
+    </div>
+  </div>
+
+  <div class="button-set-foot">
+    <span class="button-set-label">Dunder Mifflin Paper Company, Inc.</span>
+    <span class="button-set-label-end">Bring the pointer close <span class="button-set-ok">OK</span></span>
+  </div>
+</section>

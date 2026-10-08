@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- Text scramble, a free component of Moving parts. MIT licence.
+     Open this file in a browser: it runs as it is.
+     Webflow paste, AI prompt and the rest of the library:
+     https://movingparts.supply/components/text-scramble/?from=github -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text scramble, on hover &middot; Moving parts</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="text-scramble.css">
+<style>
+  /* Staging only: what the demo adds to the component, and nothing else.
+     The look of this page is the last part of text-scramble.css, and its markup is
+     snippet.html. Geist and Geist Mono (SIL Open Font License) come from
+     the Google Fonts tag above. */
+
+  ::selection { background: #15100c; color: #f4ece0; }
+
+  body {
+    margin: 0;
+    background: #f4ece0;
+    overflow-x: hidden;
+  }
+</style>
+</head>
+<body>
+
+<div class="ts-menu-page">
+  <h1 class="ts-sr-only">Text scramble, on hover</h1>
+
+  <nav class="ts-menu" aria-label="Demo menu">
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">01</span><span class="ts-menu-word">Order paper</span></a>
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">02</span><span class="ts-menu-word">Track a shipment</span></a>
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">03</span><span class="ts-menu-word">Open an account</span></a>
+    <a class="ts-menu-link" href="#" data-text-scramble="hover" data-ts-menu-link><span class="ts-menu-rank">04</span><span class="ts-menu-word">Talk to a person</span></a>
+  </nav>
+
+  <p class="ts-menu-trace">data-text-scramble="hover"</p>
+</div>
+
+<script src="text-scramble.js"></script>
+<script>
+  /* Staging only: demo links that go nowhere. None of it belongs to the
+     component. */
+  document.querySelectorAll('a[href="#"]').forEach((a) => {
+    a.addEventListener('click', (e) => e.preventDefault());
+  });
+</script>
+</body>
+</html>

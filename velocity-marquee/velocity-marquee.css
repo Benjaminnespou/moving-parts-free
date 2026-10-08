@@ -1,0 +1,279 @@
+/* =========================================================
+   Velocity marquee, the stylesheet.
+   Moving parts.
+
+   First the mechanics, what the effect needs to work. Then, after the line
+   "look, left out of the Webflow Embed", the look of the preview on the
+   vm-* classes of snippet.html: the ground, the branch name, the ribbon and
+   the four labels in the corners. With the snippet and this file, the page
+   is the preview.
+   Readable source: velocity-marquee.css, velocity-marquee.js, snippet.html.
+   ========================================================= */
+
+/* Look: your own classes win over the rules below.
+   Everything that is a real box (the height of the ribbon, its padding, the
+   type, the colours, the space between two items) belongs to the site's own
+   classes. The rules below that only propose a look sit in :where(), which
+   carries no specificity, so a single class of yours wins over them without
+   !important. */
+
+/* Ribbon window: clipping and presence marker.
+   The window the ribbon runs behind, and the presence marker the engine reads
+   to know this sheet is on the page. Without the clipping, copies of the
+   content would stand outside the box and stretch the page sideways. */
+[data-velocity-marquee] {
+  --velocity-marquee-css: 1;
+  overflow: hidden;
+  /* Width containment, so a grid never stretches.
+     The strip inside is as wide as every copy laid end to end. A grid column
+     or a flex item takes its width from the widest thing it holds, so without
+     these two lines a ribbon in a grid stretches its column to thousands of
+     pixels, and the wider box then asks for more copies still. Inline size
+     containment says plainly that the width of this box owes nothing to what
+     it holds. */
+  contain: inline-size;
+  min-width: 0;
+}
+
+/* Ribbon box display, with no width on purpose.
+   No width is written here on purpose: a block already fills what holds it,
+   and a `width: 100%` would undo the negative margins a full bleed ribbon is
+   usually made of, leaving a bare strip of page at one end.
+   The position is here too, so a class of the page that lays the ribbon out
+   in absolute, as the preview does, wins over it: in Webflow the Embed comes
+   after the site's stylesheet and would win a tie. */
+:where([data-velocity-marquee]) {
+  display: block;
+  position: relative;
+}
+
+/* Moving strip, and the seam gap (--velocity-marquee-gap).
+   The strip is built by the engine around the track, and it is the only thing
+   that ever moves: one transform per frame, on one box, whatever the number
+   of copies. `width: max-content` is what lets the copies sit on one line
+   however long they are, and the seam depends on it.
+
+   `column-gap` reads a variable rather than a number so that a ribbon whose
+   items are spaced by a flex gap keeps the same space at the seam: set
+   `--velocity-marquee-gap` to the gap of your track. Spacing carried by the
+   items themselves (padding or margin) needs nothing. */
+[data-velocity-marquee-strip] {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  width: max-content;
+  max-width: none;
+  column-gap: var(--velocity-marquee-gap, 0px);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* Track: one copy of the content.
+   One copy of the content. The first one is the page's own markup, the others
+   are copies the engine makes; they are laid out exactly the same way, which
+   is what makes the repeat seamless. */
+[data-velocity-marquee-track] {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  flex: 0 0 auto;
+  width: max-content;
+  max-width: none;
+}
+
+/* Items keep their natural width.
+   An item keeps its natural width: a flex child that shrinks would make one
+   copy narrower than the next and open a seam. */
+[data-velocity-marquee-track] > * {
+  flex: 0 0 auto;
+}
+
+/* Copies made by the engine.
+   The copies are hidden from assistive technology and unreachable by the
+   keyboard; they stay selectable text, like the original. */
+:where([data-velocity-marquee-clone]) {
+  cursor: inherit;
+}
+
+/* Reduced motion: the still ribbon.
+   Still, because the reader asked for reduced motion: the engine writes no
+   transform at all and makes no copy, so what shows is the page's own layout,
+   clipped by the box. */
+:where([data-velocity-marquee-state="still"] [data-velocity-marquee-strip]) {
+  will-change: auto;
+}
+
+/* The Webflow Embed inside the stage: no room.
+   The Embed is the last child of the pasted section. Its scripts run all
+   the same. The stage is found by its attribute, never by its class:
+   Webflow renames a class pasted twice on one site (AB-116). */
+[data-vm-stage] > .w-embed {
+  display: none;
+}
+
+/* ---------- look, left out of the Webflow Embed ---------- */
+
+/* The preview itself: the white ground, the branch name set wider than the
+   screen, the ribbon across it and the mono labels in the corners. Part of
+   what ships: with snippet.html and these rules the page is the preview,
+   the same words, the same sizes, the same spaces. The demo uses these
+   rules and keeps no copy of them; the Webflow paste carries the same
+   values as classes of the same names, which is why this part stops the
+   Embed. scripts/check-webflow.mjs refuses a build where the three
+   disagree. Nothing of the demo stays behind. The text is Geist and the
+   small labels Geist Mono; outside Webflow, both come from the Google Fonts
+   tag the Code tab puts in the head.
+
+   The engine never reads these classes. Take a class off, or this whole
+   part, and the ribbon still runs with the page's own look; the page then
+   owes it its spacing, its type and the room to scroll. */
+
+/* The page margin, taken off when the stage is the page. */
+:where(body:has(> .vm-stage)) {
+  margin: 0;
+}
+
+/* The stage gives the scroll its run and nothing else: the frame inside it
+   holds the screen for that whole run, since a ribbon that has left the
+   screen is paused and shows nothing. The scroll then changes nothing but
+   the speed and the lean of the ribbon. */
+.vm-stage {
+  height: 220vh;
+  background-color: #f4ece0;
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.vm-frame {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* The branch name, at a size no screen can hold: about 115 % of the width
+   at every width, so both ends are cut by the edges in the same proportion
+   on a laptop and on a phone. A bare viewport unit on purpose: a ceiling
+   would let a wide screen fit the whole word again. */
+.vm-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  color: rgba(21, 16, 12, 0.2);
+  font-size: 30vw;
+  font-weight: 500;
+  line-height: 0.78;
+  letter-spacing: -0.065em;
+}
+
+/* The ribbon: full bleed, laid across the letters a little below their
+   middle, where it cuts the most of them, on a lighter panel. */
+.vm-ribbon {
+  position: absolute;
+  top: 57%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  padding: clamp(14px, 2.6vh, 32px) 0;
+  background-color: #eae0d1;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+/* The row, written once. The mechanics above lay it out the same way; the
+   class says it again for a Designer canvas that runs no Embed. */
+.vm-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+/* An item of the ribbon, and the separator between two. The space after
+   each one is carried by the item, so it holds at the seam of two copies. */
+.vm-word {
+  margin-right: clamp(20px, 2.8vw, 56px);
+  font-size: clamp(26px, 4.6vw, 74px);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+.vm-mark {
+  margin-right: clamp(20px, 2.8vw, 56px);
+  color: #15100c;
+  font-size: clamp(16px, 2.3vw, 36px);
+  line-height: 1;
+}
+
+/* The small grey labels in capitals, one per corner. */
+.vm-label-tl {
+  position: absolute;
+  top: clamp(12px, 2vh, 20px);
+  left: clamp(16px, 5vw, 96px);
+  margin: 0;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.vm-label-bl {
+  position: absolute;
+  bottom: clamp(14px, 2.4vh, 24px);
+  left: clamp(16px, 5vw, 96px);
+  margin: 0;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.vm-label-br {
+  position: absolute;
+  bottom: clamp(14px, 2.4vh, 24px);
+  right: clamp(16px, 5vw, 96px);
+  margin: 0;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* The one trace of the attribute that carries the effect, top right, in
+   lower case. */
+.vm-trace {
+  position: absolute;
+  top: clamp(12px, 2vh, 20px);
+  right: clamp(16px, 5vw, 96px);
+  margin: 0;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile landscape (Webflow's small, 767px and down): the top left label
+   takes the line under the trace.
+   One class per rule, the way a Webflow class carries a breakpoint, after
+   the rules it overrides. */
+@media screen and (max-width: 767px) {
+  .vm-label-tl {
+    top: calc(clamp(12px, 2vh, 20px) + 20px);
+  }
+}

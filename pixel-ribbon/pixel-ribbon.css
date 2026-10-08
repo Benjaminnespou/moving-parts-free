@@ -1,0 +1,205 @@
+/* Pixel ribbon, the mechanics.
+   Moving parts. The script adds the canvas itself, nothing to write here.
+   Readable source: components/pixel-ribbon/pixel-ribbon.css */
+
+/* File layout: required mechanics, then the optional look.
+   The rules before the line "look, left out of the Webflow Embed" are what
+   the script needs to work at all: the section as positioning context and
+   the canvas over it, out of the flow. What only reads as a look sits in
+   :where(), which carries no specificity, so a single class from the page
+   wins over it without !important. */
+
+/* Section: positioning context for the canvas.
+   The script sets it too, in case this file is not loaded. */
+[data-pixel-ribbon] {
+  position: relative;
+}
+
+/* The canvas over the content, clicks pass through.
+   That is the effect. It never takes the pointer, so links and buttons
+   underneath keep working. */
+.pixel-ribbon-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Colour of the pixels: the ink, in the cream and ink look.
+   Read by the script when no setting names one. */
+:where([data-pixel-ribbon]) {
+  --pixel-ribbon-color: #ffab1a;
+}
+
+/* ---------- look, left out of the Webflow Embed ---------- */
+
+/* The preview itself: a white page with its header, a hero set at the foot
+   and a line of figures, so the ribbon is judged over real words. Part of
+   what ships: with snippet.html and these rules, the page is the preview.
+   The text is Geist and the small labels Geist Mono, the two faces the
+   Webflow steps add to the site; nothing of the demo stays behind.
+
+   The engine never reads these classes. Take a class off, or this whole
+   part, and the ribbon still runs over the page's own section; the section
+   then owes itself a height, since an empty section is 0px tall and
+   catches no pointer. */
+
+/* The page margin, taken off when the section is the page. */
+:where(body:has(> .pixel-ribbon-scene)) {
+  margin: 0;
+}
+
+/* The page: header at the top, the hero held at the foot. */
+.pixel-ribbon-scene {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  padding: clamp(24px, 3.4vh, 34px) clamp(20px, 3.2vw, 44px) clamp(22px, 3.2vh, 34px);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #f4ece0;
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.pixel-ribbon-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: clamp(12px, 2vw, 32px);
+}
+
+.pixel-ribbon-logo {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.pixel-ribbon-nav {
+  display: flex;
+  column-gap: clamp(16px, 2.2vw, 32px);
+}
+
+.pixel-ribbon-link {
+  color: #4f453a;
+  font-size: 15px;
+  text-decoration: none;
+  transition-property: color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+.pixel-ribbon-link:hover {
+  color: #15100c;
+}
+
+/* The hero, anchored at the foot: a terminal line, the heading on the
+   left and the lede on the right on the same baseline, then the figures. */
+.pixel-ribbon-hero {
+  grid-row-start: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  column-gap: clamp(24px, 4vw, 64px);
+  align-items: end;
+}
+
+.pixel-ribbon-eyebrow {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin-bottom: clamp(18px, 3vh, 30px);
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pixel-ribbon-title {
+  grid-column-start: 1;
+  max-width: 8.4em;
+  margin: 0px;
+  font-size: clamp(44px, 7.4vw, 116px);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+}
+
+.pixel-ribbon-lede {
+  grid-column-start: 2;
+  max-width: 26em;
+  margin: 0px;
+  color: #4f453a;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* The figures: four columns under a hairline, a label over a number. */
+.pixel-ribbon-figures {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(12px, 2vw, 32px);
+  margin-top: clamp(28px, 5vh, 56px);
+  padding-top: 14px;
+  border-top: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+.pixel-ribbon-label {
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.pixel-ribbon-number {
+  margin-top: 6px;
+  font-size: clamp(22px, 2.2vw, 34px);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.pixel-ribbon-ok {
+  color: #15100c;
+}
+
+/* Mobile landscape (Webflow's small, 767px and down): one column, the
+   lede under the heading, the figures two by two.
+   One class per rule, the way a Webflow class carries a breakpoint. */
+@media screen and (max-width: 767px) {
+  .pixel-ribbon-hero {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 20px;
+  }
+
+  .pixel-ribbon-eyebrow {
+    grid-column-end: 2;
+    margin-bottom: 0px;
+  }
+
+  .pixel-ribbon-lede {
+    grid-column-start: 1;
+  }
+
+  .pixel-ribbon-figures {
+    grid-column-end: 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 18px;
+    margin-top: 12px;
+  }
+
+  .pixel-ribbon-nav {
+    display: none;
+  }
+}

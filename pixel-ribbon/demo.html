@@ -1,0 +1,77 @@
+<!doctype html>
+<!-- Pixel ribbon, a free component of Moving parts. MIT licence.
+     Open this file in a browser: it runs as it is.
+     Webflow paste, AI prompt and the rest of the library:
+     https://movingparts.supply/components/pixel-ribbon/?from=github -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dunder Mifflin, Inc. / Paper Company</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="pixel-ribbon.css">
+<style>
+  /* Staging only: what the demo adds to the component, and nothing else.
+     The look of this page is the last part of pixel-ribbon.css, and its markup is
+     snippet.html. Geist and Geist Mono (SIL Open Font License) come from
+     the Google Fonts tag above. */
+
+  ::selection { background: #15100c; color: #f4ece0; }
+
+  body {
+    margin: 0;
+    background: #f4ece0;
+  }
+</style>
+</head>
+<body>
+
+<section class="pixel-ribbon-scene" data-pixel-ribbon>
+  <header class="pixel-ribbon-header">
+    <div class="pixel-ribbon-logo">Dunder Mifflin</div>
+    <nav class="pixel-ribbon-nav">
+      <a class="pixel-ribbon-link" href="#">Paper</a>
+      <a class="pixel-ribbon-link" href="#">Branches</a>
+      <a class="pixel-ribbon-link" href="#">Order</a>
+    </nav>
+  </header>
+
+  <div class="pixel-ribbon-hero">
+    <div class="pixel-ribbon-eyebrow">// Dunder Mifflin Paper Company / Scranton, PA <span class="pixel-ribbon-ok">OK</span></div>
+    <h1 class="pixel-ribbon-title">Paper that leaves a mark.</h1>
+    <p class="pixel-ribbon-lede">Twenty-four pound bond, ninety-eight bright, cut square to the thousandth of an inch. Every ream leaves Scranton checked by hand, and every order comes with a salesman who remembers your name.</p>
+    <div class="pixel-ribbon-figures">
+      <div>
+        <div class="pixel-ribbon-label">Weight</div>
+        <div class="pixel-ribbon-number">24 lb</div>
+      </div>
+      <div>
+        <div class="pixel-ribbon-label">Brightness</div>
+        <div class="pixel-ribbon-number">98</div>
+      </div>
+      <div>
+        <div class="pixel-ribbon-label">Sheets per ream</div>
+        <div class="pixel-ribbon-number">500</div>
+      </div>
+      <div>
+        <div class="pixel-ribbon-label">Established</div>
+        <div class="pixel-ribbon-number">1949</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="pixel-ribbon.js"></script>
+<script>
+  /* Staging only: the links of the demo go nowhere. */
+  (function () {
+    [].forEach.call(document.querySelectorAll('[data-pixel-ribbon] a'), function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!-- Velocity marquee. A ribbon of words that the page scroll drives.
+
+     data-velocity-marquee marks the box the ribbon runs behind: it is what
+     clips the content and what the effect is mounted on. Inside it,
+     data-velocity-marquee-track marks the row that holds the content, written
+     once; the engine repeats it as many times as the width needs. The
+     separators are aria-hidden, so a screen reader reads the words alone.
+
+     This is the preview as it ships. The vm-* classes are its look, written
+     at the end of velocity-marquee.css, and the Webflow paste carries the
+     same classes: the stage that gives the scroll its run, the frame that
+     holds the screen during it, the branch name, the ribbon and the labels
+     in the corners. The engine never reads a class. On a ribbon of your own,
+     keep your classes and add the two attributes; the space between two
+     items then belongs to the items, as a margin or a padding on each.
+
+     In Webflow: the settings are custom attributes on the ribbon box, in the
+     Settings panel: data-velocity-marquee-direction="right",
+     data-velocity-marquee-skew="12".
+
+     data-vm-stage is for the rule that takes the Webflow Embed out of the
+     stage, which reads an attribute, never a class: Webflow renames a class
+     pasted twice on one site. -->
+
+<section class="vm-stage" data-vm-stage>
+  <div class="vm-frame">
+    <p class="vm-label-tl">[//] Dunder Mifflin Paper Co.</p>
+    <h1 class="vm-name">Scranton</h1>
+    <div class="vm-ribbon" data-velocity-marquee>
+      <div class="vm-row" data-velocity-marquee-track>
+        <span class="vm-word">Limitless paper in a paperless world</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+        <span class="vm-word">Est. 1949</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+        <span class="vm-word">Scranton, PA</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+        <span class="vm-word">Paper, sorted by Tuesday</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+      </div>
+    </div>
+    <p class="vm-label-bl">41 accounts / one branch</p>
+    <p class="vm-label-br">Est. 1949</p>
+    <p class="vm-trace">data-velocity-marquee</p>
+  </div>
+</section>

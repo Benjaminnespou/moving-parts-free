@@ -1,0 +1,99 @@
+<!doctype html>
+<!-- Text scramble, a free component of Moving parts. MIT licence.
+     Open this file in a browser: it runs as it is.
+     Webflow paste, AI prompt and the rest of the library:
+     https://movingparts.supply/components/text-scramble/?from=github -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text scramble &middot; Moving parts</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="text-scramble.css">
+<style>
+  /* Staging only: what the demo adds to the component, and nothing else.
+     The look of this page is the last part of text-scramble.css, and its markup is
+     snippet.html. Geist and Geist Mono (SIL Open Font License) come from
+     the Google Fonts tag above. */
+
+  ::selection { background: #15100c; color: #f4ece0; }
+
+  body {
+    margin: 0;
+    background: #f4ece0;
+    overflow-x: hidden;
+  }
+</style>
+</head>
+<body>
+
+<div class="ts-page">
+
+  <section class="ts-sheet">
+    <div class="ts-rail">
+      <span data-text-scramble="scroll">[//] Lackawanna County, Pennsylvania</span>
+      <span data-text-scramble="scroll" data-text-scramble-delay="0.14">Ledger 04</span>
+      <span data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.28">06:40</span>
+    </div>
+
+    <h1 class="ts-mast" data-text-scramble="scroll" data-text-scramble-delay="0.18">Eleven people <img class="ts-slot" src="images/text-scramble-pitchers.jpg" width="900" height="310" loading="eager" decoding="async" alt="A group of pale stoneware pitchers against a dark wall"> keep a whole county in paper</h1>
+
+    <div class="ts-row">
+      <p class="ts-lede" data-text-scramble="scroll" data-text-scramble-delay="0.4">There is no call centre here and no forecast worth the name. There is a route book older than the building, eleven people who drive it, and a warehouse that has never let the county get closer than nine days.</p>
+
+      <div class="ts-ledger">
+        <div class="ts-ledger-row" data-text-scramble="scroll" data-text-scramble-delay="0.52">
+          <span>Accounts served</span>
+          <span class="ts-figure" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.58">41</span>
+        </div>
+        <div class="ts-ledger-row" data-text-scramble="scroll" data-text-scramble-delay="0.64">
+          <span>Grades held</span>
+          <span class="ts-figure" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.7">24</span>
+        </div>
+        <div class="ts-ledger-row" data-text-scramble="scroll" data-text-scramble-delay="0.76">
+          <span>Days of cover</span>
+          <span class="ts-figure" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.82">9</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ts-beat">
+    <figure class="ts-band">
+      <img class="ts-band-image" src="images/text-scramble-mugs.jpg" width="1600" height="610" loading="lazy" decoding="async" alt="White speckled stoneware mugs on a white table, dark wall behind">
+    </figure>
+
+    <div class="ts-plate-line">
+      <span data-text-scramble="scroll">Plate 02, the territory after the last van</span>
+      <span data-text-scramble="scroll" data-text-scramble-delay="0.16">Counted <span class="ts-ok">OK</span></span>
+    </div>
+
+    <div class="ts-index">
+      <div class="ts-index-row">
+        <span class="ts-rank" data-text-scramble="scroll" data-text-scramble-chars="digits">01</span>
+        <span class="ts-line" data-text-scramble="scroll" data-text-scramble-delay="0.1">The route book is older than the building</span>
+        <span class="ts-num" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.2">1949</span>
+      </div>
+      <div class="ts-index-row">
+        <span class="ts-rank" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.14">02</span>
+        <span class="ts-line" data-text-scramble="scroll" data-text-scramble-delay="0.24">Every order is called back by a person</span>
+        <span class="ts-num" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.34">2 244</span>
+      </div>
+      <div class="ts-index-row">
+        <span class="ts-rank" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.28">03</span>
+        <span class="ts-line" data-text-scramble="scroll" data-text-scramble-delay="0.38">Nothing leaves the floor uncounted</span>
+        <span class="ts-num" data-text-scramble="scroll" data-text-scramble-chars="digits" data-text-scramble-delay="0.48">94%</span>
+      </div>
+    </div>
+  </section>
+
+  <p class="ts-trace">data-text-scramble="scroll"</p>
+
+</div>
+
+<script src="text-scramble.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+{
+  "name": "movingparts-free",
+  "version": "1.0.0",
+  "description": "Five animated web components from Moving parts, free under the MIT licence: text scramble, velocity marquee, dot repel, magnetic button, pixel ribbon. Plain JavaScript and CSS, no build step.",
+  "keywords": [
+    "animation",
+    "text scramble",
+    "marquee",
+    "scroll velocity",
+    "magnetic button",
+    "cursor trail",
+    "canvas",
+    "gsap",
+    "webflow",
+    "react",
+    "nextjs"
+  ],
+  "license": "MIT",
+  "author": "Benjamin Nespoulous (https://movingparts.supply/?from=npm)",
+  "homepage": "https://movingparts.supply/free/?from=npm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Benjaminnespou/moving-parts-free.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Benjaminnespou/moving-parts-free/issues"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./esm/index.d.ts",
+      "default": "./esm/index.js"
+    },
+    "./text-scramble": {
+      "types": "./esm/text-scramble.d.ts",
+      "default": "./esm/text-scramble.js"
+    },
+    "./velocity-marquee": {
+      "types": "./esm/velocity-marquee.d.ts",
+      "default": "./esm/velocity-marquee.js"
+    },
+    "./dot-repel": {
+      "types": "./esm/dot-repel.d.ts",
+      "default": "./esm/dot-repel.js"
+    },
+    "./button-01": {
+      "types": "./esm/button-01.d.ts",
+      "default": "./esm/button-01.js"
+    },
+    "./pixel-ribbon": {
+      "types": "./esm/pixel-ribbon.d.ts",
+      "default": "./esm/pixel-ribbon.js"
+    },
+    "./text-scramble.css": "./text-scramble/text-scramble.css",
+    "./velocity-marquee.css": "./velocity-marquee/velocity-marquee.css",
+    "./dot-repel.css": "./dot-repel/dot-repel.css",
+    "./button-01.css": "./button-01/button-01.css",
+    "./pixel-ribbon.css": "./pixel-ribbon/pixel-ribbon.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "esm/",
+    "text-scramble/text-scramble.js",
+    "text-scramble/text-scramble.css",
+    "text-scramble/snippet.html",
+    "text-scramble/README.md",
+    "velocity-marquee/velocity-marquee.js",
+    "velocity-marquee/velocity-marquee.css",
+    "velocity-marquee/snippet.html",
+    "velocity-marquee/README.md",
+    "dot-repel/dot-repel.js",
+    "dot-repel/dot-repel.css",
+    "dot-repel/snippet.html",
+    "dot-repel/README.md",
+    "button-01/button-01.js",
+    "button-01/button-01.css",
+    "button-01/snippet.html",
+    "button-01/README.md",
+    "pixel-ribbon/pixel-ribbon.js",
+    "pixel-ribbon/pixel-ribbon.css",
+    "pixel-ribbon/snippet.html",
+    "pixel-ribbon/README.md",
+    "NOTICE.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build-esm.mjs",
+    "prepack": "node scripts/build-esm.mjs && node scripts/npm-links.mjs npm",
+    "postpack": "node scripts/npm-links.mjs github"
+  },
+  "peerDependencies": {
+    "gsap": "^3.12.5"
+  },
+  "peerDependenciesMeta": {
+    "gsap": {
+      "optional": true
+    }
+  }
+}

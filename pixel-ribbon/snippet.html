@@ -1,0 +1,50 @@
+<!-- Pixel ribbon. One section, and a ribbon of pixels trails the pointer
+     over everything it holds: a chain of soft blobs on springs, merged into
+     one shape and drawn as pixels, the ones at its rim smaller. When the
+     pointer stops, the ribbon folds back into its head and deflates.
+     Nothing but pixels: no picture to load. The section carries
+     data-pixel-ribbon; the script adds a canvas over it that never takes a
+     click.
+
+     This is the preview as it ships. The pixel-ribbon-* classes are its
+     look, written at the end of pixel-ribbon.css, after the line "look,
+     left out of the Webflow Embed". The engine never reads a class: on a
+     section of your own, keep your classes and add the attribute.
+
+     In Webflow: the settings are custom attributes on the section, for
+     instance data-pixel-ribbon-cell="8". -->
+
+<section class="pixel-ribbon-scene" data-pixel-ribbon>
+  <header class="pixel-ribbon-header">
+    <div class="pixel-ribbon-logo">Dunder Mifflin</div>
+    <nav class="pixel-ribbon-nav">
+      <a class="pixel-ribbon-link" href="#">Paper</a>
+      <a class="pixel-ribbon-link" href="#">Branches</a>
+      <a class="pixel-ribbon-link" href="#">Order</a>
+    </nav>
+  </header>
+
+  <div class="pixel-ribbon-hero">
+    <div class="pixel-ribbon-eyebrow">// Dunder Mifflin Paper Company / Scranton, PA <span class="pixel-ribbon-ok">OK</span></div>
+    <h1 class="pixel-ribbon-title">Paper that leaves a mark.</h1>
+    <p class="pixel-ribbon-lede">Twenty-four pound bond, ninety-eight bright, cut square to the thousandth of an inch. Every ream leaves Scranton checked by hand, and every order comes with a salesman who remembers your name.</p>
+    <div class="pixel-ribbon-figures">
+      <div>
+        <div class="pixel-ribbon-label">Weight</div>
+        <div class="pixel-ribbon-number">24 lb</div>
+      </div>
+      <div>
+        <div class="pixel-ribbon-label">Brightness</div>
+        <div class="pixel-ribbon-number">98</div>
+      </div>
+      <div>
+        <div class="pixel-ribbon-label">Sheets per ream</div>
+        <div class="pixel-ribbon-number">500</div>
+      </div>
+      <div>
+        <div class="pixel-ribbon-label">Established</div>
+        <div class="pixel-ribbon-number">1949</div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+<!doctype html>
+<!-- Velocity marquee, a free component of Moving parts. MIT licence.
+     Open this file in a browser: it runs as it is.
+     Webflow paste, AI prompt and the rest of the library:
+     https://movingparts.supply/components/velocity-marquee/?from=github -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Velocity marquee &middot; Moving parts</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="velocity-marquee.css">
+<style>
+  /* Staging only: what the demo adds to the component, and nothing else.
+     The look of this page is the last part of velocity-marquee.css, and its markup is
+     snippet.html. Geist and Geist Mono (SIL Open Font License) come from
+     the Google Fonts tag above. */
+
+  ::selection { background: #15100c; color: #f4ece0; }
+
+  body {
+    margin: 0;
+    background: #f4ece0;
+  }
+</style>
+</head>
+<body>
+
+<section class="vm-stage" data-vm-stage>
+  <div class="vm-frame">
+    <p class="vm-label-tl">[//] Dunder Mifflin Paper Co.</p>
+    <h1 class="vm-name">Scranton</h1>
+    <div class="vm-ribbon" data-velocity-marquee>
+      <div class="vm-row" data-velocity-marquee-track>
+        <span class="vm-word">Limitless paper in a paperless world</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+        <span class="vm-word">Est. 1949</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+        <span class="vm-word">Scranton, PA</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+        <span class="vm-word">Paper, sorted by Tuesday</span>
+        <span class="vm-mark" aria-hidden="true">&#47;&#47;</span>
+      </div>
+    </div>
+    <p class="vm-label-bl">41 accounts / one branch</p>
+    <p class="vm-label-br">Est. 1949</p>
+    <p class="vm-trace">data-velocity-marquee</p>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="velocity-marquee.js"></script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+/* =========================================================
+   Text scramble, portable build.
+   Moving parts.
+
+   The mechanics first. Nothing in them sets a font, a size, a colour or a
+   box: the text keeps the page's own typography before, during and after,
+   and the glyphs the script draws copy it. Then, after the line "look, left
+   out of the Webflow Embed", the look of the preview, on the ts-* classes of
+   snippet.html.
+   ========================================================= */
+
+/* Presence marker for the engine.
+   The engine reads it to know this sheet is on the page, and empties the
+   text inline instead when it is not. */
+[data-text-scramble] {
+  --text-scramble-css: 1;
+}
+
+/* Text waiting for the scroll, kept in the page.
+   The glyphs go transparent rather than hidden, so the words stay in the
+   page, in the accessibility tree and in text search. Set by the script
+   only: without it, nothing is ever hidden. */
+[data-text-scramble-state="waiting"],
+[data-text-scramble-state="waiting"] * {
+  -webkit-text-fill-color: transparent;
+  text-decoration-color: transparent;
+  text-shadow: none;
+}
+
+/* Characters mid-scramble, emptied under the drawn glyph.
+   One range each: the native glyph is emptied and the script draws the
+   scrambled one over it, so the line never changes width. Settled
+   characters leave the highlight. */
+::highlight(text-scramble) {
+  color: transparent;
+  text-shadow: none;
+}
+
+/* Fallback cover for browsers without the Highlight API.
+   Without the CSS Custom Highlight API the whole element is emptied while
+   the effect runs and the script draws every character. */
+[data-text-scramble-cover],
+[data-text-scramble-cover] * {
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+/* Menu link of the preview: keyboard focus.
+   Here and not with the look below because a Webflow class carries no
+   state, so the Embed has to bring it. One attribute and one pseudo-class,
+   so a state written on the page's own class still wins. The link is found
+   by its attribute, never by its class: Webflow renames a class pasted
+   twice on one site (AB-116). */
+[data-ts-menu-link]:focus-visible {
+  outline: 1px solid #15100c;
+  outline-offset: 4px;
+}
+
+/* ---------- look, left out of the Webflow Embed ---------- */
+
+/* The preview itself: two pages, the scroll one (.ts-page) and the hover
+   one (.ts-menu-page), their text, their two pictures and their labels.
+   Part of what ships: with snippet.html, these rules and the images in
+   images/, the pages are the preview, the same words, the same pictures,
+   the same settings. The demos use these rules and keep no copy of them;
+   the Webflow paste carries the same values as classes of the same names,
+   which is why this part stops the Embed. scripts/check-webflow.mjs refuses
+   a build where the three disagree. Nothing of the demo stays behind. The
+   text is Geist and the small labels Geist Mono; outside Webflow, both come
+   from the Google Fonts tag the Code tab puts in the head.
+
+   The engine never reads these classes. Take a class off, or this whole
+   part, and the text still scrambles with the page's own look. */
+
+/* The page margin, taken off when a page of the preview is the page. */
+:where(body:has(> .ts-page, > .ts-menu-page)) {
+  margin: 0;
+}
+
+/* ----- The scroll page ----- */
+
+/* The page: the ground, the text colour and face, and the side margins. */
+.ts-page {
+  position: relative;
+  padding-right: clamp(16px, 5vw, 96px);
+  padding-left: clamp(16px, 5vw, 96px);
+  background-color: #f4ece0;
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+}
+
+/* First screen: a header line, the headline, then the standfirst and the
+   ledger on one row, held together in the middle of the screen on a grid of
+   twelve columns. */
+.ts-sheet {
+  box-sizing: border-box;
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  align-content: center;
+  row-gap: clamp(24px, 4.5vh, 50px);
+  column-gap: clamp(10px, 1.4vw, 24px);
+  padding-top: clamp(46px, 9vh, 96px);
+  padding-bottom: clamp(32px, 6vh, 64px);
+}
+
+/* The header line: three mono labels over a hairline, on eight columns. */
+.ts-rail {
+  grid-column-start: 1;
+  grid-column-end: span 8;
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 2px;
+  column-gap: clamp(16px, 3vw, 40px);
+  padding-bottom: clamp(8px, 1.4vh, 14px);
+  border-bottom: 1px solid rgba(21, 16, 12, 0.08);
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* The headline, across the grid. */
+.ts-mast {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  max-width: 22ch;
+  margin: 0;
+  font-size: clamp(40px, 6.4vw, 86px);
+  font-weight: 500;
+  line-height: 1.06;
+  letter-spacing: -0.05em;
+}
+
+/* The picture set as a glyph in the headline: cap height, a couple of ems
+   wide, on the baseline of the line it interrupts. It takes the room of a
+   word and pushes the sentence along. */
+.ts-slot {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 2.15em;
+  height: 0.74em;
+  margin-right: 0.1em;
+  margin-left: 0.1em;
+  vertical-align: baseline;
+  object-fit: cover;
+  object-position: 50% 42%;
+  background-color: #eae0d1;
+  border: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+/* The lower row of the first screen: reading column on the left, ledger on
+   the right, both hung from the same line. */
+.ts-row {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  row-gap: clamp(20px, 4vh, 36px);
+  column-gap: clamp(10px, 1.4vw, 24px);
+  align-items: start;
+}
+
+.ts-lede {
+  grid-column-start: 1;
+  grid-column-end: span 6;
+  max-width: 44ch;
+  margin: 0;
+  color: #4f453a;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.6;
+}
+
+/* The ledger: three ruled lines, a mono label and its figure. */
+.ts-ledger {
+  grid-column-start: 8;
+  grid-column-end: -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-bottom: 1px solid rgba(21, 16, 12, 0.08);
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ts-ledger-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  row-gap: clamp(10px, 2vw, 28px);
+  column-gap: clamp(10px, 2vw, 28px);
+  padding-top: clamp(7px, 1.2vh, 12px);
+  padding-bottom: clamp(7px, 1.2vh, 12px);
+  border-top: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+.ts-figure {
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(17px, 1.7vw, 24px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+/* Second screen, the one the scroll plays: the band, its two captions, then
+   the index. It starts at the fold, so nothing here is in view at load. */
+.ts-beat {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  row-gap: clamp(14px, 2.4vh, 26px);
+  column-gap: clamp(10px, 1.4vw, 24px);
+  padding-top: clamp(30px, 5vh, 56px);
+  padding-bottom: clamp(48px, 9vh, 104px);
+}
+
+/* The band: a low picture the width of the text column, closer to a rule
+   than to a plate. */
+.ts-band {
+  box-sizing: border-box;
+  grid-column-start: 1;
+  grid-column-end: -1;
+  position: relative;
+  height: clamp(180px, 34vh, 360px);
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #eae0d1;
+  border: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+.ts-band-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 38%;
+}
+
+/* Captions under the band and not on it: the component empties a glyph
+   while it waits and draws the scrambled one itself, so ink laid over a
+   picture would be read before it settles rather than after. */
+.ts-plate-line {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 2px;
+  column-gap: clamp(16px, 3vw, 40px);
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* The one word in the colour of the effect. */
+.ts-ok {
+  color: #15100c;
+}
+
+/* The index: three ruled lines, a rank, a sentence and a figure. */
+.ts-index {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  margin-top: clamp(10px, 2vh, 22px);
+  border-bottom: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+.ts-index-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: baseline;
+  row-gap: clamp(12px, 3vw, 44px);
+  column-gap: clamp(12px, 3vw, 44px);
+  padding-top: clamp(10px, 1.7vh, 18px);
+  padding-bottom: clamp(10px, 1.7vh, 18px);
+  border-top: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+.ts-rank {
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ts-line {
+  font-size: clamp(17px, 2vw, 30px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+}
+
+.ts-num {
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: clamp(14px, 1.5vw, 21px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* The one trace of the attribute that carries the effect, pinned in the top
+   right corner of the window, in the grey of the labels. */
+.ts-trace {
+  position: fixed;
+  top: clamp(12px, 2vh, 20px);
+  right: clamp(16px, 5vw, 96px);
+  margin: 0;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+/* ----- The hover page ----- */
+
+/* The page: one screen, the menu held in its middle. */
+.ts-menu-page {
+  box-sizing: border-box;
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  padding-top: clamp(40px, 10vh, 120px);
+  padding-right: clamp(16px, 5vw, 96px);
+  padding-bottom: clamp(40px, 10vh, 120px);
+  padding-left: clamp(16px, 5vw, 96px);
+  background-color: #f4ece0;
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: normal;
+}
+
+/* Read aloud, never drawn: the page needs a name above its list and has no
+   headline of its own to carry one. */
+.ts-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The menu: four ruled lines, the last one closed by the menu's own rule. */
+.ts-menu {
+  border-bottom: 1px solid rgba(21, 16, 12, 0.08);
+}
+
+/* A link: its rank in the margin, its word pinned to the right edge. */
+.ts-menu-link {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  row-gap: clamp(12px, 3vw, 44px);
+  column-gap: clamp(12px, 3vw, 44px);
+  padding-top: clamp(10px, 1.8vh, 18px);
+  padding-bottom: clamp(10px, 1.8vh, 18px);
+  border-top: 1px solid rgba(21, 16, 12, 0.08);
+  color: #15100c;
+  text-decoration: none;
+}
+
+.ts-menu-rank {
+  justify-self: start;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ts-menu-word {
+  justify-self: end;
+  text-align: right;
+  font-size: clamp(28px, 5.4vw, 78px);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+
+/* The trace of the attribute, in the top left corner of the page. */
+.ts-menu-trace {
+  position: absolute;
+  top: clamp(12px, 2vh, 20px);
+  left: clamp(16px, 5vw, 96px);
+  margin: 0;
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+}
+
+/* Mobile landscape (Webflow's small, 767px and down): the lower row
+   stacks, the standfirst and the ledger take the full width, and the
+   picture in the headline grows a little: at 40 px of headline a
+   cap-height picture would read as a stamp.
+   One class per rule, the way a Webflow class carries a breakpoint, after
+   the rules it overrides. */
+@media screen and (max-width: 767px) {
+  .ts-lede {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    max-width: none;
+  }
+
+  .ts-ledger {
+    grid-column-start: 1;
+    grid-column-end: -1;
+  }
+
+  .ts-slot {
+    width: 2.4em;
+    height: 0.8em;
+  }
+
+  .ts-index-row {
+    column-gap: clamp(10px, 4vw, 20px);
+  }
+}

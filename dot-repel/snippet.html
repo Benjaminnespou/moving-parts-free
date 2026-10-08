@@ -1,0 +1,31 @@
+<!-- Dot repel. One section, and a fine screen of dots sits behind
+     everything it holds, like the halftone of a printed page. The pointer
+     parts it: the dots near it are pushed out of a round hole, pile up at
+     its rim and spring back when it moves on. Nothing but dots: no picture
+     to load. The section carries data-dot-repel; the script adds a canvas
+     under its content that never takes a click.
+
+     This is the preview as it ships. The dot-repel-* classes are its look,
+     written at the end of dot-repel.css, after the line "look, left out of
+     the Webflow Embed". The engine never reads a class: on a section of
+     your own, keep your classes and add the attribute.
+
+     In Webflow: the settings are custom attributes on the section, for
+     instance data-dot-repel-spacing="12". -->
+
+<section class="dot-repel-scene" data-dot-repel>
+  <header class="dot-repel-header">
+    <div class="dot-repel-logo">Dunder Mifflin</div>
+    <div class="dot-repel-place">Scranton, PA / Est. 1949</div>
+  </header>
+
+  <div class="dot-repel-hero">
+    <div class="dot-repel-eyebrow">// Dunder Mifflin Paper Company</div>
+    <h1 class="dot-repel-title">Paper that holds the ink.</h1>
+    <p class="dot-repel-lede">Twenty-four pound bond with a tooth that takes toner and fountain pen alike. Every ream leaves Scranton checked by hand, and every order comes with a salesman who remembers your name.</p>
+    <div class="dot-repel-actions">
+      <a class="dot-repel-button" href="#">Order a ream</a>
+      <a class="dot-repel-link" href="#">Find your branch</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,186 @@
+/* =========================================================
+   Button 01, portable build: magnetic, from the Button set.
+   Moving parts.
+   Built from components/button-motion/button-motion.css.
+
+   Two parts. First the base every button of the set shares: the presence
+   marker, the box and the label. Magnetic builds no layer: it moves the
+   button and its label, and needs nothing more. None of it sets a font, a
+   size, a padding, a border or a background on the button.
+
+   Then, at the end of the file, the look of the preview's button, on
+   classes of their own. It is optional: the engine never reads those
+   classes, and a button without them keeps the page's own look.
+   ========================================================= */
+
+/* ---------- base ---------- */
+
+/* Presence marker for the engine.
+   The engine reads it to know this sheet is on the page, and says so in the
+   console when it is not. Every button of the set ships this part: two
+   buttons on one page bring it twice, the same rules, which changes
+   nothing. */
+[data-button-motion] {
+  --button-motion-css: 1;
+}
+
+/* A box that can move, and the origin of its layers.
+   Zero specificity: a class of the page that sets position or display wins.
+   An inline element cannot be transformed, hence inline-block, which is what
+   a button already is. */
+:where([data-button-motion]) {
+  position: relative;
+  display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* The label, the button's own content moved into one box by the engine. */
+.button-motion-label {
+  display: inline-block;
+  position: relative;
+}
+
+/* ---------- keyboard ring of the look ---------- */
+
+/* Focus ring of the preview's buttons, for the keyboard only.
+   A Webflow paste carries no state (AB-41), so this ring stays above the
+   look and travels in the Embed with the mechanics. :where() keeps it under
+   any focus rule of the page. It finds the button by data-button-set-button,
+   never by its class: Webflow renames a class pasted twice on one site, an
+   attribute comes through as it is (AB-116). */
+:where([data-button-set-button]:focus-visible) {
+  outline: 2px solid #15100c;
+  outline-offset: 4px;
+}
+
+/* ---------- look, left out of the Webflow Embed ---------- */
+
+/* The preview itself: the section, its lines of text, the button.
+   Part of what ships: with snippet.html and these rules the page is the
+   preview, the same button, the same row, the same words. The demo uses
+   these rules and keeps no copy of them; the Webflow paste carries the same
+   values as classes of the same names, which is why this part stops the
+   Embed. scripts/check-webflow.mjs refuses a build where the three
+   disagree. Nothing of the demo stays behind.
+
+   The engine never reads these classes. Take a class off, or this whole
+   part, and the button keeps the page's own look while the animation
+   still plays.
+
+   Named button-set-* and not button-motion-*: button-motion-row is already
+   a class of the engine, the rows of letters of roll, and a look rule on it
+   would restyle every rolling label. */
+
+/* A full screen of the white ground, a head, the button, a foot. */
+.button-set-section {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  padding: clamp(14px, 2.4vh, 24px) clamp(20px, 4.6vw, 84px) clamp(18px, 3vh, 30px);
+  background-color: #f4ece0;
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+/* The page margin, taken off when the section is the page. */
+:where(body:has(> .button-set-section)) {
+  margin: 0;
+}
+
+/* The line of text above the buttons, and the one below. */
+.button-set-head {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 16px;
+  padding-bottom: clamp(8px, 1.4vh, 14px);
+  border-bottom: 1px solid rgba(21, 16, 12, 0.1);
+}
+
+.button-set-foot {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 16px;
+  padding-top: clamp(8px, 1.4vh, 14px);
+  border-top: 1px solid rgba(21, 16, 12, 0.1);
+}
+
+/* A small grey label in capitals, the end one aligned right. */
+.button-set-label {
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #7a6e60;
+}
+
+.button-set-label-end {
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #7a6e60;
+  text-align: right;
+}
+
+/* The one word in the colour of the effect. */
+.button-set-ok {
+  display: inline;
+  color: #15100c;
+}
+
+/* The button, held at mid height. */
+.button-set-row {
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  column-gap: clamp(18px, 3.2vw, 56px);
+  row-gap: clamp(28px, 5vh, 56px);
+  padding-top: clamp(40px, 8vh, 96px);
+  padding-bottom: clamp(40px, 8vh, 96px);
+}
+
+/* One button and, under it, the value that drives it. */
+.button-set-cell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  row-gap: clamp(10px, 1.6vh, 16px);
+}
+
+.button-set-caption {
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  color: #7a6e60;
+}
+
+/* The button at rest: a thin border, 8px corners, fluid padding.
+   A plain class and not :where(), so it wins over a reset of the page such
+   as * { padding: 0 }. The font is the section's. */
+.button-set-button {
+  appearance: none;
+  display: inline-block;
+  padding: clamp(15px, 1.5vw, 19px) clamp(26px, 2.6vw, 36px);
+  border: 1px solid rgba(21, 16, 12, 0.22);
+  border-radius: 8px;
+  background-color: transparent;
+  color: #15100c;
+  font: inherit;
+  font-size: clamp(15px, 1.15vw, 17px);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}

@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- Button 01, a free component of Moving parts. MIT licence.
+     Open this file in a browser: it runs as it is.
+     Webflow paste, AI prompt and the rest of the library:
+     https://movingparts.supply/components/button-01/?from=github -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Button 01 &middot; Moving parts</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400&family=Geist+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="button-01.css">
+<style>
+  /* Staging only: what the demo adds to the component, and nothing else.
+     The look of this page is the last part of button-01.css, and its markup is
+     snippet.html. Geist and Geist Mono (SIL Open Font License) come from
+     the Google Fonts tag above. */
+
+  ::selection { background: #15100c; color: #f4ece0; }
+
+  body {
+    margin: 0;
+    background: #f4ece0;
+    overflow-x: clip;
+  }
+</style>
+</head>
+<body>
+
+<section class="button-set-section">
+  <div class="button-set-head">
+    <span class="button-set-label">[//] Button 01</span>
+    <span class="button-set-label">Magnetic</span>
+  </div>
+
+  <div class="button-set-row">
+    <div class="button-set-cell">
+      <button class="button-set-button" type="button" data-button-motion="magnetic" data-button-set-button>Start a project</button>
+      <span class="button-set-caption">data-button-motion="magnetic"</span>
+    </div>
+  </div>
+
+  <div class="button-set-foot">
+    <span class="button-set-label">Dunder Mifflin Paper Company, Inc.</span>
+    <span class="button-set-label-end">Bring the pointer close <span class="button-set-ok">OK</span></span>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="button-01.js"></script>
+</body>
+</html>

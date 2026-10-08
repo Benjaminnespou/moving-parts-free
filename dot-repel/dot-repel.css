@@ -1,0 +1,191 @@
+/* Dot repel, the mechanics.
+   Moving parts. The script adds the canvas itself, nothing to write here.
+   Readable source: components/dot-repel/dot-repel.css */
+
+/* File layout: required mechanics, then the optional look.
+   The rules before the line "look, left out of the Webflow Embed" are what
+   the script needs to work at all: the section as positioning context and
+   stacking context, and the canvas under its content, out of the flow.
+   What only reads as a look sits in :where(), which carries no
+   specificity, so a single class from the page wins over it without
+   !important. */
+
+/* Section: positioning context for the canvas, and a stacking context of
+   its own, so the canvas can sit between the section's background and its
+   content. The script sets both too, in case this file is not loaded. */
+[data-dot-repel] {
+  position: relative;
+  isolation: isolate;
+}
+
+/* The canvas under the content, clicks pass through.
+   z-index -1 inside the section's own stacking context: over the
+   section's background, under every word and link. */
+.dot-repel-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Colour of the dots: the ink, in the cream and ink look.
+   Read by the script when no setting names one. */
+:where([data-dot-repel]) {
+  --dot-repel-color: #15100c;
+}
+
+/* ---------- look, left out of the Webflow Embed ---------- */
+
+/* The preview itself: a white hero with its header, a heading, a lede and
+   two links, so the field is judged as a real background under real words.
+   Part of what ships: with snippet.html and these rules, the page is the
+   preview. The text is Geist and the small labels Geist Mono, the two faces
+   the Webflow steps add to the site; nothing of the demo stays behind.
+
+   The engine never reads these classes. Take a class off, or this whole
+   part, and the field still runs behind the page's own section; the
+   section then owes itself a height, since an empty section is 0px tall
+   and shows no dot. */
+
+/* The page margin, taken off when the section is the page. */
+:where(body:has(> .dot-repel-scene)) {
+  margin: 0;
+}
+
+/* The hero: header at the top, the words held in the middle. */
+.dot-repel-scene {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  padding: clamp(24px, 3.4vh, 34px) clamp(20px, 3.2vw, 44px) clamp(22px, 3.2vh, 34px);
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #f4ece0;
+  color: #15100c;
+  font-family: Geist, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.dot-repel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: clamp(12px, 2vw, 32px);
+}
+
+.dot-repel-logo {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+/* The place, a small label at the right of the header. */
+.dot-repel-place {
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dot-repel-hero {
+  align-self: center;
+  max-width: 64rem;
+  padding-top: clamp(40px, 8vh, 96px);
+  padding-bottom: clamp(40px, 8vh, 96px);
+}
+
+/* The small label over the heading. */
+.dot-repel-eyebrow {
+  margin-bottom: clamp(18px, 3vh, 28px);
+  color: #7a6e60;
+  font-family: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.dot-repel-title {
+  max-width: 11em;
+  margin: 0px;
+  font-size: clamp(46px, 7.6vw, 120px);
+  font-weight: 400;
+  line-height: 0.96;
+  letter-spacing: -0.05em;
+}
+
+.dot-repel-lede {
+  max-width: 30em;
+  margin-top: clamp(22px, 3.4vh, 34px);
+  margin-bottom: 0px;
+  color: #4f453a;
+  font-size: clamp(16px, 1.15vw, 18px);
+  line-height: 1.6;
+}
+
+.dot-repel-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: clamp(18px, 2vw, 28px);
+  row-gap: 14px;
+  margin-top: clamp(26px, 4vh, 40px);
+}
+
+.dot-repel-button {
+  display: inline-block;
+  padding: 13px 22px;
+  border-radius: 999px;
+  background-color: #15100c;
+  color: #f4ece0;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition-property: background-color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+.dot-repel-button:hover {
+  background-color: #2a211a;
+}
+
+.dot-repel-link {
+  padding-top: 4px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(21, 16, 12, 0.25);
+  color: #15100c;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition-property: border-color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
+}
+
+.dot-repel-link:hover {
+  border-bottom-color: #15100c;
+}
+
+/* Mobile landscape (Webflow's small, 767px and down): the place in the
+   header goes, and the words drop to the lower half.
+   One class per rule, the way a Webflow class carries a breakpoint. */
+@media screen and (max-width: 767px) {
+  .dot-repel-place {
+    display: none;
+  }
+
+  .dot-repel-hero {
+    align-self: end;
+  }
+}
