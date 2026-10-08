@@ -26,6 +26,14 @@ Each preview links to the component's page on the site. To see one run here, ope
 
 The engines never read a class. On an element of your own, keep your classes and add the attribute.
 
+## Try them on CodePen
+
+- [Text scramble](https://codepen.io/Moving-parts/pen/YPZYrJG)
+- [Velocity marquee](https://codepen.io/Moving-parts/pen/bNqaomL)
+- [Dot repel](https://codepen.io/Moving-parts/pen/WbpdZYy)
+- [Button 01](https://codepen.io/Moving-parts/pen/LEWezMG)
+- [Pixel ribbon](https://codepen.io/Moving-parts/pen/ogZpGQx)
+
 ## Install
 
 ### 1. Copy the folder
